@@ -1,10 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import CatList from "./CatList";
+import { fetchCats } from "./catsSlice";
+
 
 function Cats() {
+  const catPics = useSelector((state) => state.entities);
+  const dispatch = useDispatch();
+  // const status = useSelector((state) => state.status);
+
+  useEffect(() => {
+    dispatch(fetchCats());
+  }, [dispatch]);
+
+  console.log(catPics);
   return (
-    <div>
+    <div className="App">
       <h1>CatBook</h1>
-      {/* add CatList component here */}
+      {/* { status === "loading" ? 
+        <h2>Loading...</h2> :  */}
+        <CatList catPics={catPics} />
+      {/* // }  */}
     </div>
   );
 }
